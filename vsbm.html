@@ -69,37 +69,7 @@ alert("created by Admin_12306@bilibili");
     var ang1 = 2.8;
     var ang2 = 0.4;
     var cenx = 0.0;
-    var ceny = 0.0;
-    var cenz = 0.0;
-        var KERNEL = "float kernal(vec3 ver){\n" +
-            "   vec3 a;\n" +
-            "float b,c,d,e;\n" +
-            "   a=ver;\n" +
-            "   for(int i=0;i<5;i++){\n" +
-            "       b=length(a);\n" +
-            "       c=atan(a.y,a.x)*8.0;\n" +
-            "       e=1.0/b;\n" +
-            "       d=acos(a.z/b)*8.0;\n" +
-            "       b=pow(b,8.0);\n" +
-            "       a=vec3(b*sin(d)*cos(c),b*sin(d)*sin(c),b*cos(d))+ver;\n" +
-            "       if(b>6.0){\n" +
-            "           break;\n" +
-            "       }\n" +
-            "   }" +
-            "   return 4.0-a.x*a.x-a.y*a.y-a.z*a.z;" +
-            "}";
-    var vertshade;
-    var fragshader;
-    var shaderProgram;
-    function ontimer() {
-        ang1+=0.01;
-        draw();
-        window.requestAnimationFrame(ontimer);
-    }
-    document.addEventListener("mousedown",
-        function (ev) {
-            var oEvent = ev || event;
-            if (oEvent.button == 0) {
+    var .button == 0) {
                 ml = 1;
                 mm = 0;
             }
@@ -128,8 +98,7 @@ alert("created by Admin_12306@bilibili");
         if (ml == 1) {
             ang1 += (oEvent.clientX - mx) * 0.002;
             ang2 += (oEvent.clientY - my) * 0.002;
-            if (oEvent.clientX != mx || oEvent.clientY != my) {
-                mm = 1;
+            if (oEvent.clientX != mx || oE          mm = 1;
             }
         }
         if (mr == 1) {
@@ -142,18 +111,7 @@ alert("created by Admin_12306@bilibili");
             }
         }
         mx = oEvent.clientX;
-        my = oEvent.clientY;
-        },
-        false);
-    document.addEventListener("mousewheel",
-        function (ev) {
-            ev.preventDefault();
-            var oEvent = ev || event;
-            len *= Math.exp(-0.001 * oEvent.wheelDelta);
-        },
-        false);
-    document.addEventListener("touchstart",
-        function (ev) {
+        my = oEven
             var n = ev.touches.length;
             if (n == 1) {
                 var oEvent = ev.touches[0];
@@ -339,9 +297,7 @@ alert("created by Admin_12306@bilibili");
             "         m2 = kernal(origin + dir * r2);\n" +
             "         m3 = kernal(origin + dir * r3);\n" +
             "         for (int l = 0; l < MAXR; l++) {\n" +
-            "            if (m2 > m3) {\n" +
-            "               r4 = r3;\n" +
-            "               r3 = r2;\n" +
+            "  ;\n" +
             "               r2 = r4 * M_L + r1 * M_R;\n" +
             "               m3 = m2;\n" +
             "               m2 = kernal(origin + dir * r2);\n" +
@@ -355,143 +311,10 @@ alert("created by Admin_12306@bilibili");
             "            }\n" +
             "         }\n" +
             "         if (m2 > 0.0) {\n" +
-            "            r1 = step * len*float(k - 2);\n" +
-            "            r2 = r2;\n" +
-            "            m1 = kernal(origin + dir * r1);\n" +
-            "            m2 = kernal(origin + dir * r2);\n" +
-            "            for (int l = 0; l < SOLVER; l++) {\n" +
-            "               r3 = r1 * 0.5 + r2 * 0.5;\n" +
-            "               m3 = kernal(origin + dir * r3);\n" +
+            "            r1 = step *  "               m3 = kernal(origin + dir * r3);\n" +
             "               if (m3 > 0.0) {\n" +
             "                  r2 = r3;\n" +
             "                  m2 = m3;\n" +
             "               }\n" +
-            "               else {\n" +
-            "                  r1 = r3;\n" +
-            "                  m1 = m3;\n" +
-            "               }\n" +
-            "            }\n" +
-            "            if (r3 < 2.0 * len&&r3> step*len) {\n" +
-            "                   sign=1;" +
-            "               break;\n" +
-            "            }\n" +
-            "         }\n" +
-            "         else if (m3 > 0.0) {\n" +
-            "            r1 = step * len*float(k - 2);\n" +
-            "            r2 = r3;\n" +
-            "            m1 = kernal(origin + dir * r1);\n" +
-            "            m2 = kernal(origin + dir * r2);\n" +
-            "            for (int l = 0; l < SOLVER; l++) {\n" +
-            "               r3 = r1 * 0.5 + r2 * 0.5;\n" +
-            "               m3 = kernal(origin + dir * r3);\n" +
-            "               if (m3 > 0.0) {\n" +
-            "                  r2 = r3;\n" +
-            "                  m2 = m3;\n" +
-            "               }\n" +
-            "               else {\n" +
-            "                  r1 = r3;\n" +
-            "                  m1 = m3;\n" +
-            "               }\n" +
-            "            }\n" +
-            "            if (r3 < 2.0 * len&&r3> step*len) {\n" +
-            "                   sign=1;" +
-            "               break;\n" +
-            "            }\n" +
-            "         }\n" +
-            "      }\n" +
-            "      v2 = v1;\n" +
-            "      v1 = v;\n" +
-            "   }\n" +
-            "   if (sign==1) {\n" +
-            "      ver = origin + dir*r3 ;\n" +
-                "       r1=ver.x*ver.x+ver.y*ver.y+ver.z*ver.z;" +
-            "      n.x = kernal(ver - right * (r3*0.001)) - kernal(ver + right * (r3*0.001));\n" +
-            "      n.y = kernal(ver - up * (r3*0.001)) - kernal(ver + up * (r3*0.001));\n" +
-            "      n.z = kernal(ver + forward * (r3*0.001)) - kernal(ver - forward * (r3*0.001));\n" +
-            "      r3 = n.x*n.x+n.y*n.y+n.z*n.z;\n" +
-            "      n = n * (1.0 / sqrt(r3));\n" +
-            "      ver = localdir;\n" +
-            "      r3 = ver.x*ver.x+ver.y*ver.y+ver.z*ver.z;\n" +
-            "      ver = ver * (1.0 / sqrt(r3));\n" +
-            "      reflect = n * (-2.0*dot(ver, n)) + ver;\n" +
-            "      r3 = reflect.x*0.276+reflect.y*0.920+reflect.z*0.276;\n" +
-            "      r4 = n.x*0.276+n.y*0.920+n.z*0.276;\n" +
-            "      r3 = max(0.0,r3);\n" +
-            "      r3 = r3 * r3*r3*r3;\n" +
-            "      r3 = r3 * 0.45 + r4 * 0.25 + 0.3;\n" +
-                "      n.x = sin(r1*10.0)*0.5+0.5;\n" +
-                "      n.y = sin(r1*10.0+2.05)*0.5+0.5;\n" +
-                "      n.z = sin(r1*10.0-2.05)*0.5+0.5;\n" +
-            "      color = n*r3;\n" +
-            "   }\n" +
-            "   gl_FragColor = vec4(color.x, color.y, color.z, 1.0);" +
-            "}";
-        canvas = document.getElementById('c1');
-        gl = canvas.getContext('webgl');
-        vertshader = gl.createShader(gl.VERTEX_SHADER);
-        fragshader = gl.createShader(gl.FRAGMENT_SHADER);
-        shaderProgram = gl.createProgram();
-        gl.shaderSource(vertshader, VSHADER_SOURCE);
-        gl.compileShader(vertshader);
-        var infov = gl.getShaderInfoLog(vertshader);
-        gl.shaderSource(fragshader, FSHADER_SOURCE + KERNEL);
-        gl.compileShader(fragshader);
-        var infof = gl.getShaderInfoLog(fragshader);
-        gl.attachShader(shaderProgram, vertshader);
-        gl.attachShader(shaderProgram, fragshader);
-        gl.linkProgram(shaderProgram);
-        gl.useProgram(shaderProgram);
-        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-            var info = gl.getProgramInfoLog(shaderProgram);
-            throw 'Could not compile WebGL program. \n\n' + infov + infof + info;
-        }
-        glposition = gl.getAttribLocation(shaderProgram, 'position');
-        glright = gl.getUniformLocation(shaderProgram, 'right');
-        glforward = gl.getUniformLocation(shaderProgram, 'forward');
-        glup = gl.getUniformLocation(shaderProgram, 'up');
-        glorigin = gl.getUniformLocation(shaderProgram, 'origin');
-        glx = gl.getUniformLocation(shaderProgram, 'x');
-        gly = gl.getUniformLocation(shaderProgram, 'y');
-        gllen = gl.getUniformLocation(shaderProgram, 'len');
-        var buffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-        gl.vertexAttribPointer(glposition, 3, gl.FLOAT, false, 0, 0);
-        gl.enableVertexAttribArray(glposition);
-
-        gl.viewport(0, 0, 1024, 1024);
-        draw();
-        window.requestAnimationFrame(ontimer);
-        document.getElementById("kernel").value = KERNEL;
-        document.getElementById("btn").addEventListener("click", function() {
-            var state = this.innerText == "CONFIG";
-            this.innerText = state ? "HIDE" : "CONFIG";
-            document.getElementById("config").style.display = state ? "inline" : "none";
-        });
-        document.getElementById("apply").addEventListener("click", function() {
-            KERNEL = document.getElementById("kernel").value;
-            gl.shaderSource(fragshader, FSHADER_SOURCE + KERNEL);
-            gl.compileShader(fragshader);
-            var infof = gl.getShaderInfoLog(fragshader);
-            gl.linkProgram(shaderProgram);
-            gl.useProgram(shaderProgram);
-            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-                var info = gl.getProgramInfoLog(shaderProgram);
-                alert(infof + info);
-            }
-            glposition = gl.getAttribLocation(shaderProgram, 'position');
-            glright = gl.getUniformLocation(shaderProgram, 'right');
-            glforward = gl.getUniformLocation(shaderProgram, 'forward');
-            glup = gl.getUniformLocation(shaderProgram, 'up');
-            glorigin = gl.getUniformLocation(shaderProgram, 'origin');
-            glx = gl.getUniformLocation(shaderProgram, 'x');
-            gly = gl.getUniformLocation(shaderProgram, 'y');
-            gllen = gl.getUniformLocation(shaderProgram, 'len');
-        });
-        document.getElementById("cancle").addEventListener("click", function() {
-            document.getElementById("kernel").value = KERNEL;
-        });
-    }
-    </script>
-</body>
-</html>
+            
+            
